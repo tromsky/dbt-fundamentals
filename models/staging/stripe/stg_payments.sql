@@ -1,4 +1,5 @@
 with
+    source as (select * from {{ source("stripe", "payment") }}),
     payments as (
         select
             id as payment_id,
@@ -10,7 +11,7 @@ with
             amount / 100 as amount,
             created as created_at
 
-        from `dbt-tutorial.stripe.payment`
+        from source
     )
 
 select *
